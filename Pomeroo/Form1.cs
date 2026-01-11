@@ -131,5 +131,30 @@ namespace Pomeroo
         {
             Application.Exit();
         }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            Settings settingsForm = new Settings();
+
+            if (settingsForm.ShowDialog() == DialogResult.OK)
+            {
+                //re-assign new values
+                workTime = TimerModel.workTime;
+                shortRest = TimerModel.shortRest;
+                longRest = TimerModel.longRest;
+                cycleCount = TimerModel.cycleCount;
+
+                // reset timer
+                isRunning = false;
+                isWorkTime = true;
+                completedCycles = 0;
+                timeLeft = workTime;
+                TimeSpan ts = TimeSpan.FromSeconds(timeLeft);
+                lblTimer.Text = ts.ToString(@"mm\:ss");
+                lblSession.Text = "Work";
+                btnStart.Text = "Start";
+                timer1.Stop();
+            }
+        }
     }
 }
