@@ -90,14 +90,14 @@ namespace Pomeroo
                         timeLeft = longRest;
                         lblSession.Text = "Long Rest";
                         notifyIcon1.ShowBalloonTip(2000, "Long Rest", "Time to take a long rest!", ToolTipIcon.Info);
-                        SystemSounds.Exclamation.Play();
+                        playSound();
                     }
                     else
                     {
                         timeLeft = shortRest;
                         lblSession.Text = "Short Rest";
                         notifyIcon1.ShowBalloonTip(2000, "Short Rest", "Time to take a short rest!", ToolTipIcon.Info);
-                        SystemSounds.Exclamation.Play();
+                        playSound();
                     }
                 }
                 else
@@ -105,7 +105,7 @@ namespace Pomeroo
                     timeLeft = workTime;
                     lblSession.Text = "Work";
                     notifyIcon1.ShowBalloonTip(2000, "Work", "Time to work!", ToolTipIcon.Info);
-                    SystemSounds.Exclamation.Play();
+                    playSound();
                 }
 
                 isWorkTime = !isWorkTime;
@@ -154,6 +154,16 @@ namespace Pomeroo
                 lblSession.Text = "Work";
                 btnStart.Text = "Start";
                 timer1.Stop();
+            }
+        }
+
+        void playSound()
+        {
+            SystemSounds.Exclamation.Play(); // fallback
+
+            using (var soundPlayer = new SoundPlayer(Properties.Resources.bell_notif))
+            {
+                soundPlayer.Play();
             }
         }
     }
